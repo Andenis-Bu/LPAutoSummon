@@ -1,15 +1,24 @@
-[h2]Description:[/h2]
-[b]LP's Auto Summon[b] is a mod for Terraria that enhances the summoner gameplay experience by automating the summoning of minions. With this mod, you no longer need to manually summon each minion one by one. Instead, just place your summoner weapon in the 10th hotbar slot and the mod ensures that your maximum number of minions are automatically summoned.
+[h1]LP's Auto Summon[/h1]
+[b]LP's Auto Summon[/b] is a mod for Terraria that enhances the summoner gameplay experience by automating the summoning of minions. With this mod, you no longer need to manually summon each minion one by one. Instead, just place your summoner weapon in the designated hotbar slot and the mod ensures that your maximum number of minions are automatically summoned. The mod also automatically re-summons your minions after you respawn.
 
-[h2]How It Works:[/h2]
+[h2]What's New in 1.1[/h2]
 [list]
-[*][b]Slot 10 Detection:[/b] The mod monitors the item in your 10th inventory slot. If it is a summoning weapon (and not a sentry), it will use this item for auto-summoning.
-[*][b]Minion Cap Changes:[/b] Whenever your maximum minion capacity changes (e.g., equipping new gear or buffs), the mod will automatically summon the appropriate number of minions.
+[*][b]Configurable Hotbar Slot:[/b] You can now configure which hotbar slot to use for summoning, with the 10th slot still being the default.
+[*][b]Bug Fix:[/b] Fixed a minor bug where summoning sounds were played for everyone in multiplayer when another player triggered their auto summoning.
+[/list]
+
+[h2]How It Works[/h2]
+[list]
+[*][b]Hotbar Slot Selection:[/b] The mod monitors the item in your chosen hotbar slot. If it is a summoning weapon (and not a sentry), it will use this item for auto-summoning.
+[*][b]Adjusts to Minion Capacity:[/b] Whenever your maximum minion capacity changes (e.g., equipping new gear or buffs), the mod will automatically summon the appropriate number of minions.
 [*][b]Player Respawn:[/b] After respawning, the mod will ensure your minions are summoned back automatically.
 [/list]
 
-[h2]Compatibility:[/h2]
-[b]LP's Auto Summon[b] is compatible with most other mods. However, if you encounter any issues, please report them in the mod's comment section.
+[h2]Compatibility[/h2]
+LP's Auto Summon is compatible with most other mods. If you encounter any issues, please report them on the [url=https://github.com/Andenis-Bu/LPAutoSummon/issues]GitHub issues page[/url].
 
-[h2]Feedback and Support:[/h2]
+[h2]Feedback and Support[/h2]
 If you have any feedback or need support, feel free to leave a comment or start a discussion on the Steam Workshop page. Your input is valuable and helps improve the mod.
+
+[h2]Source Code[/h2]
+The source code for LP's Auto Summon is available on [url=https://github.com/Andenis-Bu/LPAutoSummon]GitHub[/url].
