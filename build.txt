@@ -1,0 +1,6 @@
+displayName = LP's Auto Summon
+author = LaunchPad
+version = 1.0
+homepage = https://github.com/Andenis-Bu/LPAutoSummon
+buildIgnore = .git\*, .vs\*, bin\*, obj\*, *.csproj, *.sln, *.user, *.config, README.md, .gitignore
+includeSource = true
