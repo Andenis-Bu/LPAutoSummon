@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Channels;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -7,13 +6,16 @@ namespace LPAutoSummon
 {
     public class AutoSummon : ModPlayer
     {
-        private int  previousMinionSlotIndex;   // Store the index of inventory slot for minions
+        private int  previousMinionSlotIndex;   // Store the previous index of hotbar slot for minions
         private int  previousMinionCap;         // Store the previous max minions count
-        private Item previousMinionSlotItem;    // Store the previous item in the inventory slot for minions
+        private Item previousMinionSlotItem;    // Store the previous item in the hotbar slot for minions
 
         private bool hasSpawned;                // Flag to check if the player has respawned
         private bool isUsingMinionSlotItem;     // Flag to check if is using an item
-        private bool hasUsedMinionSlotItem;     // Flag to check if user has used an item
+        private bool hasUsedMinionSlotItem;     // Flag to check if the player has used an item
+
+        private bool hasChangedMinionCap;       // Flag to check if minion capacity has increased
+        private bool hasChangedMinionSlotItem;  // Flag to check if item in configured minion slot has changed
 
         // Initialize the mod player
         public override void Initialize()
@@ -21,12 +23,15 @@ namespace LPAutoSummon
             base.Initialize();
 
             previousMinionSlotIndex = GetConfigMinionSlotIndex();
-            previousMinionSlotItem = null;
+            previousMinionSlotItem = new Item();
             previousMinionCap = 0;
      
             hasSpawned = false;
             isUsingMinionSlotItem = false;
             hasUsedMinionSlotItem = false;
+
+            hasChangedMinionCap = false;
+            hasChangedMinionSlotItem = false;
         }
 
         // Get the index of inventory slot for minions
@@ -36,7 +41,7 @@ namespace LPAutoSummon
         }
 
         // Get the total number of used up minion slot
-        private float GetMinionSlotsUsed()
+        private float CountMinionSlotsUsed()
         {
             float minionSlotsUsed = 0f;
             foreach (Projectile proj in Main.projectile)
@@ -75,49 +80,56 @@ namespace LPAutoSummon
             if (!checkItemSummonsMinions(Player.inventory[previousMinionSlotIndex]))
             {
                 return; 
-            }      
+            }
 
             // Select configured minion slot item
             int previousSelectedItem = Player.selectedItem;
             Player.selectedItem = previousMinionSlotIndex;
-
-            
+      
+            // Create instance of a projectile of the summoner weapon minion to see its slot size
             Projectile proj = new Projectile();
             proj.SetDefaults(Player.HeldItem.shoot);
 
-            float minionSlotsUsed = GetMinionSlotsUsed();
+            float minionSlotsUsed = CountMinionSlotsUsed();
+
             // Loop through the max minions count to summon them
             while (minionSlotsUsed + proj.minionSlots <= Player.maxMinions)
             {
-                float previousScreenPositionX = Main.screenPosition.X;
-                float previousScreenPositionY = Main.screenPosition.Y;
+                float previousScreenPositionX = Main.screenPosition.X; // Backup screen position X
+                float previousScreenPositionY = Main.screenPosition.Y; // Backup screen position Y
 
                 // Adjust screen position for summoning effect
                 Main.screenPosition.X = Player.Center.X - Main.MouseScreen.X + Random.Shared.Next(0, 10) * 16 - 5 * 16;
                 Main.screenPosition.Y = Player.Center.Y - Main.MouseScreen.Y + Random.Shared.Next(0, 10) * 16 - 5 * 16;
 
-                int previousMana = Player.HeldItem.mana;
+                // Back up values
+                var previousControlUseItem = Player.controlUseItem;
+                var previousMana = Player.HeldItem.mana;
+
                 Player.HeldItem.mana = 0; // Prevent mana consumption
 
                 // Trigger item use
                 Player.controlUseItem = true;
+                Player.itemAnimation = 0;
                 Player.ItemCheck();
                 Player.controlUseItem = false;
-
+                
                 // Wait until the item animation is finished
                 while (Player.itemAnimation > 0)
                 {
                     Player.ItemCheck();
                 }
 
-                Player.HeldItem.mana = previousMana; // Restore previous mana cost
+                // Restore values
+                Player.controlUseItem = previousControlUseItem;
+                Player.HeldItem.mana = previousMana; 
 
                 Main.screenPosition.X = previousScreenPositionX; // Restore screen position X
                 Main.screenPosition.Y = previousScreenPositionY; // Restore screen position Y
 
                 minionSlotsUsed += proj.minionSlots;
             }
-
+            
             Player.selectedItem = previousSelectedItem;
         }
 
@@ -125,27 +137,29 @@ namespace LPAutoSummon
         public override void OnRespawn()
         {
             base.OnRespawn();
+
             hasSpawned = true;
         }
 
         public override void PreUpdate()
         {
             base.PreUpdate();
+
             // Check if the game is running on a dedicated server or the player instance is not the current player,
             if (Main.dedServ || Player.whoAmI != Main.myPlayer)
             {
                 return;
             }
 
-            // Remove all currently summoned minions if conditions are met
+            // Set flag and remove all minions if item in configured minion slot has changed 
             if (previousMinionSlotItem != Player.inventory[previousMinionSlotIndex])
             {
-                removeAllSummonMinions(); 
+                hasChangedMinionSlotItem = true;
+                removeAllSummonMinions();
             }
 
-
-            // Activate flag to check if conditions are met
-            if (Player.selectedItem == GetConfigMinionSlotIndex() && // Check if the select item is configured minion slot item
+            // Set flag if conditions are met
+            if (Player.selectedItem == previousMinionSlotIndex && // Check if the select item is configured minion slot item
                 checkItemSummonsMinions(Player.HeldItem) && // Check if the held item is a minion summon item
                 Player.controlUseItem) // Check if the player is using an item
             {
@@ -154,22 +168,7 @@ namespace LPAutoSummon
                     isUsingMinionSlotItem = true;
                     hasUsedMinionSlotItem = true;
 
-
-                    int previousMana = Player.HeldItem.mana;
-                    Player.HeldItem.mana = 0; // Prevent mana consumption
-
-                    // Trigger item use
-                    Player.controlUseItem = true;
-                    Player.ItemCheck();
-                    Player.controlUseItem = false;
-
-                    Player.HeldItem.mana = previousMana; // Restore previous mana cost
-
-                    // Wait until the item animation is finished
-                    while (Player.itemAnimation > 0)
-                    {
-                        Player.ItemCheck();
-                    }
+                    Player.itemAnimation = 0;
                 }
             }
             else
@@ -181,21 +180,32 @@ namespace LPAutoSummon
         public override void PostUpdate()
         {
             base.PostUpdate();
+
             // Check if the game is running on a dedicated server or the player instance is not the current player,
             if (Main.dedServ || Player.whoAmI != Main.myPlayer)
             {
                 return;
             }
 
-            // Summon minions if conditions are met
-            if (previousMinionCap != Player.maxMinions || // Check if the max minions count has changed
-                previousMinionSlotItem != Player.inventory[previousMinionSlotIndex] || // Check if the item in the configured minion slot has changed
-                hasUsedMinionSlotItem || // Check if the item in the configured minion slot has been used
-                hasSpawned) // Check if if the player has respawned
+            // Set flag if minion capacity has increased
+            if (previousMinionCap < Player.maxMinions)
             {
-                SummonMinions(); 
+                hasChangedMinionCap = true;
+            }
+
+            // Summon minions if conditions are met
+            if (hasSpawned || // Check if if the player has respawned
+               hasChangedMinionSlotItem || // Check if the item in the configured minion slot has changed
+               hasUsedMinionSlotItem || // Check if the item in the configured minion slot has been used
+               hasChangedMinionCap) // Check if the max minions count has changed  
+            {
+                SummonMinions();
+
+                // Reset flags
                 hasSpawned = false;
                 hasUsedMinionSlotItem = false;
+                hasChangedMinionSlotItem = false;
+                hasChangedMinionCap = false;    
             }
 
             // Update stored values

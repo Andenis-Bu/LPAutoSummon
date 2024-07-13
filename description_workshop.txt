@@ -1,23 +1,25 @@
 [img]https://i.imgur.com/fSNjidx.gif[/img]
 
 [h1]LP's Auto Summon[/h1]
-[b]LP's Auto Summon[/b] is a mod for Terraria that enhances the summoner gameplay experience by automating the summoning of minions. With this mod, you no longer need to manually summon each minion one by one. Instead, just place your summoner weapon in the designated hotbar slot and the mod ensures that your maximum number of minions are automatically summoned. The mod also automatically re-summons your minions after you respawn.
+[b]LP's Auto Summon[/b] is a mod for Terraria that enhances the summoner gameplay experience by automating the summoning of minions. With this mod, you no longer need to manually summon each minion one by one. Instead, just place your summoner weapon in the configured hotbar slot and the mod ensures that your maximum number of minions are automatically summoned. The mod also automatically re-summons your minions after you respawn.
 
-[h2]What's New in 1.2[/h2]
+[h2]What's New in 1.2.1[/h2]
 [list]
-[*][b]Support for Minions Using Less Than 1 Slot:[/b] Added support for summoning minions who take up less space than 1 slot.
-[*][b]Auto Summon on Summon Item Use:[/b] Trigger auto summon when you use your designated summoning slot item to fill in the slots.
-[*][b]Re-summon on Item Swap:[/b] Swapping your summoning item in the selected summon slot will now re-summon everything as the new summoner item.
+[*][b]Client-Side Only:[/b] The mod is now fully client-side, so you can use it even if the server doesn't have it.
+[*][b]Bug Fix - Summoner Potion:[/b] Fixed a bug where drinking a summoner potion didn't trigger auto summon.
+[*][b]Bug Fix - Empty Summoner Slot:[/b] Fixed a bug where having an empty summoner slot but having it also selected in your hotbar constantly triggered the auto summon.
 [/list]
 
 [h2]How It Works[/h2]
 [list]
-[*][b]Summoning Weapon Detection:[/b] The mod constantly monitors the item in your selected hotbar slot. If the item is a summoning weapon (excluding sentries), it will automatically use this item for summoning minions.
+[*][b]Auto Summon on Item Use:[/b] Trigger auto summon when you use your configured summoning slot item to fill in the slots.
+[img]https://i.imgur.com/XzTfMBB.gif[/img]
+[*][b]Summoning Weapon Detection:[/b] The mod constantly monitors the item in your configured hotbar slot. If the item is a summoning weapon (excluding sentries), it will automatically use this item for summoning minions.
 [img]https://i.imgur.com/G5DEl3a.gif[/img]
 [*][b]Adjusts to Minion Capacity:[/b] Whenever your maximum minion capacity changes (e.g., equipping new gear or buffs), the mod will automatically summon the appropriate number of minions.
-[img]https://i.imgur.com/y6C13cB.gif[/img]
+[img]https://i.imgur.com/G7l3hD5.gif[/img]
 [*][b]Re-summon on Player Respawn:[/b] After respawning, the mod will ensure your minions are summoned back automatically.
-[img]https://i.imgur.com/6zwDnaj.gif[/img]
+[img]https://i.imgur.com/l7I1RUn.gif[/img]
 [*][b]Configurable Hotbar Slot:[/b] You can configure which hotbar slot to use for summoning, with the 10th slot being the default.
 [img]https://i.imgur.com/8uDql2R.gif[/img]
 [/list]
@@ -30,4 +32,3 @@ If you have any feedback or need support, feel free to leave a comment or start 
 
 [h2]Source Code[/h2]
 The source code for LP's Auto Summon is available on [url=https://github.com/Andenis-Bu/LPAutoSummon]GitHub[/url].
-[quote=tModLoader]Developed By LaunchPad[/quote]
