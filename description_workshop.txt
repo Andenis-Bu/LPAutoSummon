@@ -3,6 +3,11 @@
 [h1]LP's Auto Summon[/h1]
 [b]LP's Auto Summon[/b] is a mod for Terraria that enhances the summoner gameplay experience by automating the summoning of minions. With this mod, you no longer need to manually summon each minion one by one. Instead, just place your summoner weapon in the configured hotbar slot and the mod ensures that your maximum number of minions are automatically summoned. The mod also automatically re-summons your minions after you respawn.
 
+[h2]What's New in 1.2.2[/h2]
+[list]
+[*][b]Bug Fix - Stardust Dragon Staff:[/b] Fixed an infinite loop issue where using the Stardust Dragon Staff with the mod caused the game to crash.
+[/list]
+
 [h2]What's New in 1.2.1[/h2]
 [list]
 [*][b]Client-Side Only:[/b] The mod is now fully client-side, so you can use it even if the server doesn't have it.

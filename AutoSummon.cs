@@ -86,14 +86,15 @@ namespace LPAutoSummon
             int previousSelectedItem = Player.selectedItem;
             Player.selectedItem = previousMinionSlotIndex;
       
-            // Create instance of a projectile of the summoner weapon minion to see its slot size
+            // Create instance of a projectile of the summoner weapon minion to get its slot size
             Projectile proj = new Projectile();
             proj.SetDefaults(Player.HeldItem.shoot);
+            float minionSlotSize = proj.minionSlots != 0 ? proj.minionSlots : 1;
 
             float minionSlotsUsed = CountMinionSlotsUsed();
 
             // Loop through the max minions count to summon them
-            while (minionSlotsUsed + proj.minionSlots <= Player.maxMinions)
+            while (minionSlotsUsed + minionSlotSize <= Player.maxMinions)
             {
                 float previousScreenPositionX = Main.screenPosition.X; // Backup screen position X
                 float previousScreenPositionY = Main.screenPosition.Y; // Backup screen position Y
@@ -127,7 +128,7 @@ namespace LPAutoSummon
                 Main.screenPosition.X = previousScreenPositionX; // Restore screen position X
                 Main.screenPosition.Y = previousScreenPositionY; // Restore screen position Y
 
-                minionSlotsUsed += proj.minionSlots;
+                minionSlotsUsed += minionSlotSize;
             }
             
             Player.selectedItem = previousSelectedItem;
