@@ -2,7 +2,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace LPAutoSummon
+namespace LPAutoSummon.src
 {
     public class AutoSummon : ModPlayer
     {
@@ -37,7 +37,7 @@ namespace LPAutoSummon
         // Get the index of inventory slot for minions
         private int GetConfigMinionSlotIndex()
         {
-            return ModContent.GetInstance<ModConfigs>().MinionSlot - 1;
+            return ModConfigs.Instance.MinionSlot - 1;
         }
 
         // Get the total number of used up minion slot

@@ -2,16 +2,6 @@ Configs: {
 	ModConfigs: {
 		DisplayName: Mod Configs
 
-		ChosenNumber: {
-			Tooltip: ""
-			Label: Choose a Number
-		}
-
-		SummonSlot: {
-			Label: Hotbar Slot for Summoning Minions
-			Tooltip: Choose which hotbar slot to use for summoning minions (1-10)
-		}
-
 		MinionSlot: {
 			Label: Hotbar Slot for Summoning Minions
 			Tooltip: Choose which hotbar slot to use for summoning minions (1-10)
