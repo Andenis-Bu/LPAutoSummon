@@ -2,9 +2,14 @@ Configs: {
 	ModConfigs: {
 		DisplayName: Mod Configs
 
-		MinionSlot: {
-			Label: Hotbar Slot for Summoning Minions
-			Tooltip: Choose which hotbar slot to use for summoning minions (1-10)
+		MinionColumnIndex: {
+			Label: Inventory column for Summoning Minions
+			Tooltip: Choose which inventory column to use for summoning minions (1-10)
+		}
+
+		MuteSummonUseSounds: {
+			Label: Mute Summon Use Sounds
+			Tooltip: Enable this to mute the sound effects when summoning minions from the configured inventory column
 		}
 	}
 }

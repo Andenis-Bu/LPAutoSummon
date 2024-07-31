@@ -4,13 +4,16 @@ using Terraria.ModLoader.Config;
 
 namespace LPAutoSummon.src
 {
-    internal class ModConfigs : ModConfig
+    public class ModConfigs : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [DefaultValue(10)] // Default value is set to 10
-        [Range(1, 10)] // Allows values from 1 to 10
-        public int MinionSlot;
+        [DefaultValue(10)]
+        [Range(1, 10)] 
+        public int MinionColumnIndex { get; set; }
+
+        [DefaultValue(false)]
+        public bool MuteSummonUseSounds { get; set; }
 
         public static ModConfigs Instance => ModContent.GetInstance<ModConfigs>();
     }
