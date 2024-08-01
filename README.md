@@ -1,4 +1,3 @@
-# LP's Auto Summon
 **LP's Auto Summon** is a mod for Terraria that enhances the summoner gameplay experience by automating the summoning of minions. With this mod, you no longer need to manually summon each minion one by one. Instead, just place your summoner weapons anywhere in the configured inventory column (10th column being the default), and the mod ensures that your maximum number of minions are automatically summoned. Additionally, the mod will automatically re-summon your minions after you respawn, ensuring you're always battle-ready.
 
 ## What's New in 1.3
